@@ -23,20 +23,20 @@ LOCAL_PATH := device/samsung/p4notelte-common
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
-BOARD_BLUEDROID_VENDOR_CONF := $(LOCAL_PATH)/bluetooth/vnd_p4notelte.txt
 
-# Camera
-COMMON_GLOBAL_CFLAGS += -DCAMERA_WITH_CITYID_PARAM
+# Recovery
+TARGET_RECOVERY_FSTAB := device/samsung/p4notelte-common/rootdir/fstab.p4notelte
+TARGET_RECOVERY_DENSITY := mdpi
+TARGET_USERIMAGES_USE_F2FS := true
+RECOVERY_FSTAB_VERSION := 2
 
-COMMON_GLOBAL_CFLAGS += -DEXYNOS4X12_TABLET
+# Gps
+PRODUCT_COPY_FILES += \
+    device/samsung/p4notelte-common/configs/gps.xml:system/etc/gps.xml
 
-# Charging mode
-BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
-BOARD_BATTERY_DEVICE_NAME := "battery"
+# Selinux
+BOARD_SEPOLICY_DIRS += device/samsung/p4notelte-common/selinux
 
 # Recovery
 # inherit from the proprietary version
 -include vendor/samsung/p4notelte-common/BoardConfigVendor.mk
-
-# Selinux
-BOARD_SEPOLICY_DIRS += device/samsung/p4notelte-common/selinux
