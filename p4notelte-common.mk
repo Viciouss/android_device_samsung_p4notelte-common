@@ -20,52 +20,98 @@ $(call inherit-product, device/samsung/smdk4412-qcom-common/common.mk)
 
 LOCAL_PATH := device/samsung/p4notelte-common
 
+# Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay-common
 
+# Screen density
 PRODUCT_AAPT_CONFIG := xlarge mdpi
 PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 TARGET_SCREEN_HEIGHT := 800
 TARGET_SCREEN_WIDTH := 1280
 
-# Packages
-PRODUCT_PACKAGES += \
-    SamsungServiceMode
-
-#RIL
-PRODUCT_PACKAGES += \
-    libsecril-shim\
-    libsamsung_symbols
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    mobiledata.interfaces=pdp0,wlan0,gprs,ppp0 \
-    ro.ril.hsxpa=1 \
-    ro.ril.gprsclass=10
+# Init files
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/ueventd.smdk4x12.rc:root/ueventd.smdk4x12.rc \
+    $(LOCAL_PATH)/rootdir/ueventd.smdk4x12.rc:recovery/root/ueventd.smdk4x12.rc \
+    $(LOCAL_PATH)/rootdir/fstab.p4notelte:root/fstab.smdk4x12
 
 # Audio
 PRODUCT_COPY_FILES += \
-    device/samsung/n80xx-common/configs/audio_policy.conf:system/etc/audio_policy.conf \
-    device/samsung/n80xx-common/configs/tiny_hw.xml:system/etc/sound/tiny_hw.xml
+    $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/configs/tiny_hw.xml:system/etc/sound/tiny_hw.xml
 
 # Camera
 PRODUCT_COPY_FILES += \
-    device/samsung/n80xx-common/configs/media_profiles.xml:system/etc/media_profiles.xml
+    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
 
 PRODUCT_PACKAGES += \
     camera.smdk4x12
 
-# IR packages
+# ConsumerIR
 PRODUCT_PACKAGES += \
     consumerir.exynos4
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.consumerir.xml:system/etc/permissions/android.hardware.consumerir.xml
 
+# Product specific Packages
+PRODUCT_PACKAGES += \
+    SamsungServiceMode \
+    tinyplay \
+    Snap
+
+# Sensors
+PRODUCT_PACKAGES += \
+    sensors.smdk4x12
+
+# Power
+PRODUCT_PACKAGES += \
+    power.smdk4x12
+
+# Gps
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/gps.xml:system/etc/gps.xml
+
+PRODUCT_PACKAGES += \
+	gps.smdk4x12
+
+# RIL
+PRODUCT_PACKAGES += \
+    libsamsung_symbols \
+    libsecril-shim \
+    libsecril-client \
+    libsecril-client-sap
+    
+# f2fs
+PRODUCT_PACKAGES += \
+    fibmap.f2fs \
+    fsck.f2fs \
+    mkfs.f2fs
+
+# RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    mobiledata.interfaces=pdp0,gprs,ppp0,rmnet0,rmnet1 \
+    ro.ril.hsxpa=1 \
+    ro.ril.gprsclass=10
+
+# ART
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-flags=--no-watch-dog \
+    dalvik.vm.dex2oat-swap=false
+
+# I/O Scheduler
+PRODUCT_PROPERTY_OVERRIDES += \
+    sys.io.scheduler=cfq
+
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
-    frameworks/native/data/etc/android.software.connectionservice.xml:system/etc/permissions/android.software.connectionservice.xml
+    frameworks/native/data/etc/android.software.connectionservice.xml:system/etc/permissions/android.software.connectionservice.xml \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+    frameworks/native/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
 
 # Set product characteristic to tablet, needed for some ui elements
 PRODUCT_CHARACTERISTICS := tablet
