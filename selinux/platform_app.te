@@ -1,1 +1,2 @@
 allow platform_app log_device:chr_file { open write };
+allow platform_app nfc_service:service_manager find;

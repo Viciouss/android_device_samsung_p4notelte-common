@@ -1,13 +1,13 @@
 type radio_efs_file, fs_type, contextmount_type;
 
-type firmware_camera, file_type;
-
 type mdnie_sysfs, file_type;
 type vib_sysfs, file_type;
 
 type qmuxd_socket, file_type;
 type kickstart_data_file, file_type, data_file_type;
 type sensors_data_file, file_type, data_file_type;
+type sysfs_display, fs_type, sysfs_type;
+type sysfs_gps, fs_type, sysfs_type;
 type volume_data_file, file_type, data_file_type;
 
 #File types required by mdm-helper
@@ -27,3 +27,7 @@ type persist_data_file, file_type;
 type persist_drm_file, file_type;
 type data_drm_file, file_type;
 type efs_device_file, file_type;
+type radio_data, file_type;
+type sysfs_radio, fs_type, sysfs_type;
+type sysfs_sensor, fs_type, sysfs_type;
+type cbd_device, dev_type;

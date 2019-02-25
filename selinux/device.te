@@ -24,3 +24,5 @@ type smem_log_device, dev_type;
 
 #Define rct device type for time daemon
 #type rtc_device, dev_type;
+
+type hpd_device, dev_type;

@@ -1,3 +1,12 @@
 allow vold boot_block_device:blk_file { read write open ioctl getattr };
 allow vold efs_file:dir { ioctl open read };
 allow vold log_device:chr_file { open write };
+
+allow vold kernel:process setsched;
+
+allow vold log_device:dir search;
+
+allow vold blkid_exec:file { getattr execute read open execute_no_trans };
+
+allow vold efs_device_file:dir rw_file_perms;
+allow vold efs_device_file:file rw_file_perms;
