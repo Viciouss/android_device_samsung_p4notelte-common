@@ -62,8 +62,8 @@ PRODUCT_PACKAGES += \
     Snap
 
 # Sensors
-PRODUCT_PACKAGES += \
-    sensors.smdk4x12
+#PRODUCT_PACKAGES += \
+#    sensors.smdk4x12
 
 # Power
 PRODUCT_PACKAGES += \
